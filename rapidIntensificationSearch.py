@@ -7,7 +7,6 @@ if desiredFile == 'REDUCED_AL_SHIPS_1982_2017_sat_ts.dat':
         fileRW = open('/users/fletes/dataFiles/RAPID_REDUCED_AL_SHIPS_1982_2017_sat_ts.dat', 'w')
         fileNRW = open('/users/fletes/dataFiles/NONRAPID_REDUCED_AL_SHIPS_1982_2017_sat_ts.dat', 'w')
         print('opened')
-        print('I'm making a comment')
         print(windowS)
         print(windowE)
         #for line in fileR:  might have to go about this another way
