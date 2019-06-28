@@ -46,6 +46,6 @@ if desiredFile == 'AL_SHIPS_1982_2017_sat_ts.dat':
                         fileW.write(line)
         fileR.close()
         fileW.close()
-        print('closed')
+        print('closed!')
 else:
         print('Incorrect, try again with a different document')
