@@ -2,23 +2,33 @@
 desiredFile = raw_input('Which file would you like to search? ')
 if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
         print('Sounds good')
-        fileR = open('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_sat_ts_extracted.dat', 'r')
+        fileR = open('/calval_npp2/fletes/dataFiles/practiceData.dat', 'r')
+        fileWW = open('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_sat_ts_NRI_list.dat', 'w')
         fileW = open('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_sat_ts_RI_list.dat', 'w')
         print('opened')
+        firstLine = fileR.readline()
+        nameS = firstLine[1:5]
+        velocityA = False
+        velocityB = False
         for line in fileR:
+                #line = fileR.read().splitlines()
                 if 'HEAD' in line:
-                        dS = line[5:12]
+                        global nameE
+                        global dE
+                        global h
+                        nameE = line[1:5]
+                        dS = line[6:12]
                         dE = dS
                         h = line[12:15]
-                        def timeIncrease():#had a global vs local error, fixed it so remember to do this!!!!!!!!!!!!
+                        def timeIncrease():
                                 global dE
-                                if dS[1:4] == '2':
-                                        if int(dS[3:]) < 29 and dS[3:] != '29':
+                                if dE[2:4] == '02':
+                                        if int(dE[4:]) < 29 and dE[4:] != '29':
                                                 dE = str(int(dE) + 1)
                                                 if dS[0] == '0':
                                                         dE = dE.zfill(1)
-                                        elif dS[3:] == '28':
-                                                if int(dS[:2]) % 4 == 0:
+                                        elif dE[4:] == '28':
+                                                if int(dE[:2]) % 4 == 0:
                                                         leapYear = True
                                                         dE = str(int(dE) + 1)
                                                 elif dS[0] == '0':
@@ -32,37 +42,67 @@ if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
                                                 elif dS[0] == '0':
                                                         dE = dE.zfill(1)
                                         return dE
-                                elif dS[1:4] == '04' or dS[1:4] == '6' or dS[1:4] == '09' or dS[1:4] == '11':
-                                        if int(dS[3:]) < 30:
-                                                dE = str(int(dE) + 1)
-                                        elif dS[3:] == '30':
+                                elif dE[2:4] == '04' or dE[2:4] == '06' or dE[2:4] == '09' or dE[2:4] == '11':
+                                        if int(dE[4:]) < 30:
+                                                dE = str(int(dS) + 1)
+                                        elif dE[4:] == '30':
                                                 dE = str(int(dE) + 71)
-                                        elif dS[0] == '0':
+                                        elif dE[0] == '0':
                                                 dE = dE.zfill(1)
                                         return dE
-                                elif dS[1:4] == '12':
-                                        if int(dS[3:]) < 31:
+                                elif dE[2:4] == '12':
+                                        if int(dE[4:]) < 31:
                                                 dE = str(int(dE) + 1)
-                                        elif dS[3:] == '31':
-                                                if dS[:2] == '99':
+                                        elif dE[4:] == '31':
+                                                if dE[:2] == '99':
                                                         dE = '10101'
                                                 else:
-                                                        dE = str(int(dE) + 8870) # y + 1, m = 01, d + 01
+                                                        dE = str(int(dE) + 8870) #y + 1, m = 01, d + 01
                                         elif dS[0] == '0':
                                                 dE = dE.zfill(1)
-                                        return dE
+                                         return dE
                                 else:
-                                        if int(dS[3:]) < 31:
-                                                dE = str(int(dE) + 1)
-                                        elif dS[3:] == '31':
-                                                dE = str(int(dE) + 70)
+                                        if int(dE[4:]) < 31:
+                                                dE = str(int(dS) + 1)
+                                        elif dE[4:] == '31':
+                                                dE = str(int(dS) + 70)
                                         elif dS[0] == '0':
                                                 dE = dE.zfill(1)
                                         return dE
                         timeIncrease()
-                        fileW.write('dS: ' + dS + '\n')
-                        fileW.write('dE: ' + dE + '\n')
-                        fileW.write('h: ' + h + '\n')
+                        if nameS == nameE:
+                                for li in fileR:
+                                        fileW.write(li)
+                                        #enters here
+                                        if 'HEAD' in li:
+                                                print('found head')
+                                                if h in li:
+                                                        print('h found')
+                                                        if nameS in li:
+                                                                if dS in li:
+                                                                        l = li + 1
+                                                                        splitted = l.split()
+                                                                        vS = splitted[2]
+                                                                        velocityA = True
+                                                                        print('dS found')
+                                                                elif dE in lines:
+                                                                        ll = li + 1
+                                                                        splitt = ll.split()
+                                                                        vE = splitt[2]
+                                                                        velocityB = True
+                                                                        print('dE found')
+                                                                if velocityA == True and velocityB == True:
+                                                                        print('both velocities are set to true')
+                                                                        if vE - vS == 30:
+                                                                                if int(dS[:2]) < 82:
+                                                                                        #fileW.write(nameS + ' ' + h + ' 20', dS)
+                                                                                        print('reachedA')
+                                                                                else:
+                                                                                        #fileW.write(nameS + ' ' +  h + ' 19', dS)
+                                                                                        print('reachedB')
+                                                                                break
+                        else:
+                                nameS = nameE
         fileR.close()
         fileW.close()
         print('closed')
