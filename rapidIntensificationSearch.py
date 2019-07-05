@@ -102,8 +102,10 @@ if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
                                                                                         print('reachedB')
                                                                                 break
                         else:
+                                #fileWW.write(nameS)
                                 nameS = nameE
         fileR.close()
+        fileWW.close()
         fileW.close()
         print('closed')
 else:
