@@ -70,24 +70,27 @@ if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
                                                 dE = dE.zfill(1)
                                         return dE
                         timeIncrease()
-                        if nameS == nameE:
+                        if nameS == nameE: #i should probably rename the website, dogWithABlog -->
+                                fileR.seek(0)
                                 for li in fileR:
-                                        fileW.write(li)
-                                        #enters here
+                                        #enters here successfully
                                         if 'HEAD' in li:
+                                                #enters here but does it only 3 times when it should do it 5, printed it in another doc and saw that it starts on the vmax of the 3rd storm recording
+                                                #fixed it a little, finds head 5 times, h once, dS once, and that's it
+#order of things to do today: clean room, hang up clothes, do laundry, set up palette while listening to music (use a paperclip to settle the paint evenly), look up some info on html and expand on the website, maybe add to textGame
                                                 print('found head')
                                                 if h in li:
                                                         print('h found')
                                                         if nameS in li:
                                                                 if dS in li:
-                                                                        l = li + 1
-                                                                        splitted = l.split()
+                                                                        #l = li + 1
+                                                                        splitted = li.split()
                                                                         vS = splitted[2]
                                                                         velocityA = True
                                                                         print('dS found')
-                                                                elif dE in lines:
-                                                                        ll = li + 1
-                                                                        splitt = ll.split()
+                                                                if dE in li:
+                                                                        #ll = li + 1
+                                                                        splitt = li.split()
                                                                         vE = splitt[2]
                                                                         velocityB = True
                                                                         print('dE found')
@@ -98,14 +101,15 @@ if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
                                                                                         #fileW.write(nameS + ' ' + h + ' 20', dS)
                                                                                         print('reachedA')
                                                                                 else:
-                                                                                        #fileW.write(nameS + ' ' +  h + ' 19', dS)
+                                                                                        #fileW.write(nameS + ' ' + h + ' 19', dS)
                                                                                         print('reachedB')
                                                                                 break
                         else:
                                 #fileWW.write(nameS)
+                                #only uncomment the line above when it is finished and ready to run for real
                                 nameS = nameE
-        fileR.close()
         fileWW.close()
+        fileR.close()
         fileW.close()
         print('closed')
 else:
