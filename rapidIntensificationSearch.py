@@ -56,8 +56,6 @@ if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
         print('opened')
         firstLine = fileRR.readline()
         nameS = firstLine[1:5]
-        velocityA = False
-        velocityB = False
         last_pos = 1
         #rapidIntense = False
         with open('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_sat_ts_extracted.dat', 'r') as fileR:
@@ -73,8 +71,12 @@ if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
                                 dE = dS
                                 h = spitted[2]
                                 timeIncrease()
+                                last_pos = fileR.tell()
+                                lineee = fileR.readline()
+                                splitted = lineee.split()
+                                vS = splitted[2]
+                                fileR.seek(last_pos)
                                 with open('/calval_npp2/fletes/dataFiles/practiceData.dat', 'r') as fileRRR:
-                                        number = 1
                                         linee = fileRRR.readline()
                                         if nameS == nameE:
                                                         #rapidIntense = False
@@ -83,37 +85,27 @@ if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
                                                         if 'HEAD' in linee:
                                                                 if h in linee:
                                                                         if nameS in linee:
-                                                                                if dS in linee:
-                                                                                        last_pos = fileRRR.tell()
-                                                                                        lineee = fileRRR.readline()
-                                                                                        splitted = lineee.split()
-                                                                                        vS = splitted[2]
-                                                                                        velocityA = True
-                                                                                        fileRRR.seek(last_pos)
-                                                                                elif dE in linee:
+                                                                                if dE in linee:
                                                                                         last_poss = fileRRR.tell()
                                                                                         lineee = fileRRR.readline()
                                                                                         splitt = lineee.split()
                                                                                         vE = splitt[2]
-                                                                                        velocityB = True
                                                                                         fileRRR.seek(last_poss)
-                                                if velocityA == True and velocityB == True:
-                                                        if int(vE) - int(vS) >= 30:
-                                                                if int(dS[:2]) < 82:
-                                                                        #if rapidIntense == False:
-                                                                        fileW.write(str(nameS) + ' ' + str(h) + ' 20' + str(dS) + ' \n')
-                                                                        print('reachedA')
-                                                                                #rapidIntense = True
-                                                                        velocityA = False
-                                                                        velocityB = False
-
-                                                                else:
-                                                                        #if rapidIntense == False:
-                                                                        fileW.write(str(nameS) + ' ' + str(h) + ' 19' + str(dS) + ' \n')
-                                                                        print('reachedB')
-                                                                                #rapidIntense = True
-                                                                        velocityA = False
-                                                                        velocityB = False
+                                                if int(vE) - int(vS) >= 30:
+                                                        if int(dS[:2]) < 82:
+                                                                #if rapidIntense == False:
+                                                                fileW.write(str(nameS) + ' ' + str(h) + ' 20' + str(dS) + ' \n')
+                                                                print('reachedA')
+                                                                #rapidIntense = True
+                                                                velocityA = False
+                                                                velocityB = False
+                                                        else:
+                                                                #if rapidIntense == False:
+                                                                fileW.write(str(nameS) + ' ' + str(h) + ' 19' + str(dS) + ' \n')
+                                                                print('reachedB')
+                                                                #rapidIntense = True
+                                                                velocityA = False
+                                                                velocityB = False
                                         else:
                                                 #if rapidIntense == False:
                                                 fileWW.write(nameS + ' \n')
