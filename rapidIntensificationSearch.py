@@ -47,7 +47,6 @@ def timeIncrease():
                 if dS[0] == '0':
                         dE = dE.zfill(1)
                 return dE
-desiredFile = raw_input('Which file would you like to search? ')
 if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
         print('Sounds good')
         fileRR = open('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_sat_ts_extracted.dat', 'r')
@@ -57,7 +56,8 @@ if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
         firstLine = fileRR.readline()
         nameS = firstLine[1:5]
         last_pos = 1
-        #rapidIntense = False
+        rapidIntense = False
+        dEtruth = False
         with open('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_sat_ts_extracted.dat', 'r') as fileR:
                 line = fileR.readline()
                 while line:
@@ -79,46 +79,47 @@ if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
                                 with open('/calval_npp2/fletes/dataFiles/practiceData.dat', 'r') as fileRRR:
                                         linee = fileRRR.readline()
                                         if nameS == nameE:
-                                                        #rapidIntense = False
                                                 while linee:
-                                                        linee = fileRRR.readline()
-                                                        if 'HEAD' in linee:
-                                                                if h in linee:
-                                                                        if nameS in linee:
-                                                                                if dE in linee:
-                                                                                        last_poss = fileRRR.tell()
-                                                                                        lineee = fileRRR.readline()
-                                                                                        splitt = lineee.split()
-                                                                                        vE = splitt[2]
-                                                                                        fileRRR.seek(last_poss)
+                                                        if dEtruth == True:
+                                                                break
+                                                        else:
+                                                                if 'HEAD' in linee:
+                                                                        if h in linee:
+                                                                                if nameS in linee:
+                                                                                        if dE in linee:
+                                                                                                last_poss = fileRRR.tell()
+                                                                                                lineee = fileRRR.readline()
+                                                                                                splitt = lineee.split()
+                                                                                                vE = splitt[2]
+                                                                                                fileRRR.seek(last_poss)
+                                                                                                dEtruth = True
+                                                                linee = fileRRR.readline()
+
                                                 if int(vE) - int(vS) >= 30:
                                                         if int(dS[:2]) < 82:
-                                                                #if rapidIntense == False:
-                                                                fileW.write(str(nameS) + ' ' + str(h) + ' 20' + str(dS) + ' \n')
-                                                                print('reachedA')
-                                                                #rapidIntense = True
+                                                                if rapidIntense == False:
+                                                                        fileW.write(str(nameS) + ' ' + str(h) + ' 20' + str(dS) + ' \n')
+                                                                rapidIntense = True
                                                                 velocityA = False
                                                                 velocityB = False
                                                         else:
-                                                                #if rapidIntense == False:
-                                                                fileW.write(str(nameS) + ' ' + str(h) + ' 19' + str(dS) + ' \n')
-                                                                print('reachedB')
-                                                                #rapidIntense = True
+                                                                if rapidIntense == False:
+                                                                        fileW.write(str(nameS) + ' ' + str(h) + ' 19' + str(dS) + ' \n')
+                                                                rapidIntense = True
                                                                 velocityA = False
                                                                 velocityB = False
                                         else:
-                                                #if rapidIntense == False:
-                                                fileWW.write(nameS + ' \n')
+                                                if rapidIntense == False:
+                                                        fileWW.write(str(nameS) + ' ' + str(dS) + ' \n')
                                                 nameS = nameE
-                                                #rapidIntense = False
-                                line = fileR.readline()
-        fileRR.close()
-        fileWW.close()
-        fileR.close()
-        fileW.close()
-        fileRRR.close()
-        print('closed')
+                                                nameE = nameS
+                                                rapidIntense = False
+                        line = fileR.readline()
 else:
         print('Try again with a different file')
-#work hard but know when to take breaks, draw people out in life, follow fitness accounts and draw those bodies to learn anatomy, humana.com is a great resource to draw real people, if struggling with same face syndrome change the face
-#shape, nose shape, and eyebrow shase
+fileRR.close()
+fileWW.close()
+fileR.close()
+fileW.close()
+fileRRR.close()
+print('closed')
