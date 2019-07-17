@@ -47,6 +47,7 @@ def timeIncrease():
                 if dS[0] == '0':
                         dE = dE.zfill(1)
                 return dE
+desiredFile = raw_input('Which file would you like to search? ')
 if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
         print('Sounds good')
         fileRR = open('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_sat_ts_extracted.dat', 'r')
@@ -76,7 +77,7 @@ if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
                                 splitted = lineee.split()
                                 vS = splitted[2]
                                 fileR.seek(last_pos)
-                                with open('/calval_npp2/fletes/dataFiles/practiceData.dat', 'r') as fileRRR:
+                                with open('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_sat_ts_extracted.dat', 'r') as fileRRR:
                                         linee = fileRRR.readline()
                                         if nameS == nameE:
                                                 while linee:
