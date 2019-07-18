@@ -48,7 +48,7 @@ def timeIncrease():
                         dE = dE.zfill(1)
                 return dE
 desiredFile = raw_input('Which file would you like to search? ')
-if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
+if desiredFile.lower() == 'yes':
         print('Sounds good')
         fileRR = open('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_sat_ts_extracted.dat', 'r')
         fileWW = open('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_sat_ts_NRI_list.dat', 'w')
@@ -56,7 +56,6 @@ if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
         print('opened')
         firstLine = fileRR.readline()
         nameS = firstLine[1:5]
-        last_pos = 1
         rapidIntense = False
         dEtruth = False
         with open('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_sat_ts_extracted.dat', 'r') as fileR:
@@ -71,12 +70,11 @@ if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
                                 dS = spitted[1]
                                 dE = dS
                                 h = spitted[2]
+                                vS = spitted[3]
                                 timeIncrease()
-                                last_pos = fileR.tell()
                                 lineee = fileR.readline()
                                 splitted = lineee.split()
                                 vS = splitted[2]
-                                fileR.seek(last_pos)
                                 with open('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_sat_ts_extracted.dat', 'r') as fileRRR:
                                         linee = fileRRR.readline()
                                         if nameS == nameE:
@@ -88,25 +86,23 @@ if desiredFile == 'AL_SHIPS_1982_2017_sat_ts_extracted.dat':
                                                                         if h in linee:
                                                                                 if nameS in linee:
                                                                                         if dE in linee:
-                                                                                                last_poss = fileRRR.tell()
-                                                                                                lineee = fileRRR.readline()
-                                                                                                splitt = lineee.split()
-                                                                                                vE = splitt[2]
-                                                                                                fileRRR.seek(last_poss)
+                                                                                                splitt = linee.split()
+                                                                                                vE = splitt[3]
                                                                                                 dEtruth = True
-                                                                linee = fileRRR.readline()
-
+                                                        linee = fileRRR.readline()
                                                 if int(vE) - int(vS) >= 30:
                                                         if int(dS[:2]) < 82:
                                                                 if rapidIntense == False:
                                                                         fileW.write(str(nameS) + ' ' + str(h) + ' 20' + str(dS) + ' \n')
                                                                 rapidIntense = True
+                                                                dEtruth = False
                                                                 velocityA = False
                                                                 velocityB = False
                                                         else:
                                                                 if rapidIntense == False:
                                                                         fileW.write(str(nameS) + ' ' + str(h) + ' 19' + str(dS) + ' \n')
                                                                 rapidIntense = True
+                                                                dEtruth = False
                                                                 velocityA = False
                                                                 velocityB = False
                                         else:
