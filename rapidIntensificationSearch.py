@@ -1,4 +1,5 @@
 #! /usr/bin/python2
+#do not use this one it does not work correctly, saving this bc i wasted two weeks of my life learning that JUST USE LISTS
 def timeIncrease():
         global dE
         if dE[2:4] == '02':
