@@ -1,5 +1,4 @@
 #! /bin/usr/python2
-
 import matplotlib.pyplot as plt
 import numpy as np
 import csv
@@ -10,8 +9,8 @@ from IPython import embed as shell
 x = []
 y = []
 
-RI_data = open('/calval_npp2/fletes/code/AL_SHIPS_1982_2017_TC_RI.txt','r')
-RI_name_data = open('/calval_npp2/fletes/code/AL_SHIPS_1982_2017_TC_RI_name.txt','r')
+RI_data = open('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_TC_RI.txt','r')
+RI_name_data = open('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_TC_RI_name.txt','r')
 head_line = RI_name_data.readline() #getting first line of RITC names list, only need to change this line for storm change!! <-- very important
 splitted = head_line.split() #splitting the first line of RITC names list
 marker = str(splitted[0] + ' ' + splitted[1] + ' ' + splitted[2]) #getting the date and time of the RI of the TC
