@@ -47,5 +47,5 @@ def setXY(fileName, stormIndex):
         plt.title(storm + ' Storm Data')
         plt.errorbar(x1, y1, yerr=5, label='Rapid Intensification Starts') #yerr = line height, xerr = line width
         plt.legend()
-setXY('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_TC_RI.txt', 15)
+setXY('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_TC_RI.txt', 1)
 plt.show()
