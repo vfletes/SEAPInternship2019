@@ -7,7 +7,7 @@ import math
 #ctrl-r redoes an action
 from IPython import embed as shell
 import datetime as dt
-plt.rcParams.update({'xtick.labelsize': 6})
+plt.rcParams.update({'xtick.labelsize': 9})
 def setXY(fileName, stormIndex):
         x = []
         y = []
@@ -20,6 +20,7 @@ def setXY(fileName, stormIndex):
         storm = splitted[0] #getting the name of the TC
         date = splitted[1]#beginning storm date
         stormYr = date[:2]#year of storm
+        count = 0
         with open(fileName,'r') as RI_data:
                 row = RI_data.readline()
                 while row:
@@ -36,16 +37,24 @@ def setXY(fileName, stormIndex):
                                 x.append(xVal)
                                 line2 = RI_data.readline().split()
                                 y.append(int(line2[2]))
+
                                 if marker in row:
-                                        x1 = xVal
-                                        y1 = int(line2[2]) + 5
+                                        b = count
+                                        #x1 = xVal
+                                        #y1 = int(line2[2]) + 5
+                                count += 1
                         row = RI_data.readline()
         plt.plot(x,y)
-        plt.xticks(x, xLabels)
+        plt.xticks(x, xLabels, rotation='vertical')
         plt.xlabel('Year, Month, Day, and Time of Storm')
         plt.ylabel('Wind Speeds')
         plt.title(storm + ' Storm Data')
-        plt.errorbar(x1, y1, yerr=5, label='Rapid Intensification Starts') #yerr = line height, xerr = line width
-        plt.legend()
+        #plt.errorbar(x1, 0, yerr=2, label='Rapid Intensification Starts') #yerr = line height, xerr = line width
+        plt.gca().get_xticklabels()[b].set_color('red')
+        #plt.legend()
+w = 10
+h = 6
+fig = plt.figure(figsize=(w,h))
 setXY('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_TC_RI.txt', 1)
+plt.savefig('/calval_npp2/fletes/dataFiles/alicPlot.png', bbox_inches='tight')
 plt.show()
