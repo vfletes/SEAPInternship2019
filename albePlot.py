@@ -56,5 +56,5 @@ w = 10
 h = 6
 fig = plt.figure(figsize=(w,h))
 setXY('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_TC_RI.txt', 1)
-plt.savefig('/calval_npp2/fletes/dataFiles/alicPlot.png', bbox_inches='tight')
+plt.savefig('/calval_npp2/fletes/dataFiles/albePlot.png', bbox_inches='tight')
 plt.show()
