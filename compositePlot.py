@@ -1,3 +1,15 @@
+#! /bin/usr/python
+import matplotlib.pyplot as plt
+import numpy as np
+import csv
+import os
+import math
+#ctrl-r redoes an action
+from IPython import embed as shell
+import datetime as dt
+plt.rcParams.update({'xtick.labelsize': 6})
+#num = 0
+labelList = []
 def setXY(fileName, stormIndex):
         global labelList
         #num += 1
