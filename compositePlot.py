@@ -8,7 +8,6 @@ import math
 from IPython import embed as shell
 import datetime as dt
 plt.rcParams.update({'xtick.labelsize': 6})
-#num = 0
 labelList = []
 def setXY(fileName, stormIndex):
         global labelList
@@ -45,18 +44,6 @@ def setXY(fileName, stormIndex):
                                 line2 = RI_data.readline().split()
                                 y.append(int(line2[2]))
                         row = RI_data.readline()
-                                #if marker in :
-                                        #if num == 1:
-                                                #storm1 = storm
-                                                #b1 = count
-                                                #x1 = xVal
-                                                #y1 = int(line2[2]) + 5
-                                #else:
-                                #storm2 = storm
-                                #b2 = count
-                                #x2 = xVal
-                                #y2 = int(line2[2]) + 5
-                                #count += 1
 
         plt.plot(x,y)
         plt.xticks(labelList, np.array(labelList)/3600, rotation='vertical')
@@ -72,8 +59,5 @@ try:
                 i += 1
 except:
         print('done')
-#setXY('/calval_npp2/fletes/dataFiles/AL_SHIPS_1982_2017_TC_RI.txt', 2)
-#plt.gca().get_xticklabels()[b1].set_color('red')
-#plt.gca().get_xticklabels()[b2].set_color('red')
 plt.savefig('/calval_npp2/fletes/dataFiles/compositePlot.png', bbox_inches='tight')
 plt.show()
